@@ -22,6 +22,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         Item i = new Item();
+        int contadorites =0;
     }
 
     /**
@@ -420,19 +421,22 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_JB_CrearMascotaActionPerformed
 
     private void JB_crearitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_crearitemActionPerformed
+        AdminItems ai=new AdminItems("./items.cdc");
         if(CB_alimento.isSelected()){
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
-            modelo.addElement(new Item(tf_nomitems.getText(),true,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+            modelo.addElement(new Item(0,tf_nomitems.getText(),true,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
             tf_nomitems.setText("");
             tf_probObtener.setText("");
             tf_precio.setText("");
+            ai.escribirArchivo();
         }else{
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
             modelo.addElement
-            (new Item(tf_nomitems.getText(),false,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+            (new Item(0,tf_nomitems.getText(),false,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
             tf_nomitems.setText("");
             tf_probObtener.setText("");
             tf_precio.setText("");
+            ai.escribirArchivo();
         }
     }//GEN-LAST:event_JB_crearitemActionPerformed
 

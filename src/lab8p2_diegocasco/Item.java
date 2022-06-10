@@ -10,6 +10,7 @@ package lab8p2_diegocasco;
  * @author dcasc
  */
 public class Item {//HOLA
+    private int id;
     private String nombre;
     private boolean Alimento;
     private int probobtener;
@@ -18,7 +19,8 @@ public class Item {//HOLA
     public Item() {
     }
 
-    public Item(String nombre, boolean Alimento, int probobtener, int precioventa) {
+    public Item(int id,String nombre, boolean Alimento, int probobtener, int precioventa) {
+        this.id = id;
         this.nombre = nombre;
         this.Alimento = Alimento;
         this.probobtener = probobtener;
@@ -57,9 +59,17 @@ public class Item {//HOLA
         this.precioventa = precioventa;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return nombre;
+        return id+ " "+nombre;
     }
     
 }
