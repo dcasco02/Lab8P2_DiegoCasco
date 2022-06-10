@@ -418,10 +418,16 @@ public class Main extends javax.swing.JFrame {
         if(CB_alimento.isSelected()){
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
             modelo.addElement(new Item(tf_nomitems.getText(),true,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+            tf_nomitems.setText("");
+            tf_probObtener.setText("");
+            tf_precio.setText("");
         }else{
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
             modelo.addElement
             (new Item(tf_nomitems.getText(),false,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+            tf_nomitems.setText("");
+            tf_probObtener.setText("");
+            tf_precio.setText("");
         }
     }//GEN-LAST:event_JB_crearitemActionPerformed
 
