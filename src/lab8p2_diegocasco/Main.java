@@ -9,12 +9,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
+import javax.swing.JProgressBar;
 
 /**
  *
  * @author dcasc
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form Main
@@ -23,8 +24,25 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         Item i = new Item();
         int contadorites =0;
+        
+        
     }
-
+        private JProgressBar barra;
+        private boolean avanzar;
+    Thread hilo = new Thread();
+    
+    public void run(){
+        while(avanzar){
+            if(avanzar){
+                barra.setValue(0);                
+            } //FIN IF
+            
+            try {
+                Thread.sleep(0);
+            } catch (InterruptedException ex) {
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,15 +101,23 @@ public class Main extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Delay", "Costo", "Color", "Puntos de vida"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
