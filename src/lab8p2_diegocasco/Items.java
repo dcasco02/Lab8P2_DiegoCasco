@@ -9,16 +9,16 @@ package lab8p2_diegocasco;
  *
  * @author dcasc
  */
-public class Item {//HOLA
+public class Items {
     private String nombre;
     private boolean Alimento;
     private int probobtener;
     private int precioventa;
 
-    public Item() {
+    public Items() {
     }
 
-    public Item(String nombre, boolean Alimento, int probobtener, int precioventa) {
+    public Items(String nombre, boolean Alimento, int probobtener, int precioventa) {
         this.nombre = nombre;
         this.Alimento = Alimento;
         this.probobtener = probobtener;
@@ -61,5 +61,4 @@ public class Item {//HOLA
     public String toString() {
         return nombre;
     }
-    
 }
