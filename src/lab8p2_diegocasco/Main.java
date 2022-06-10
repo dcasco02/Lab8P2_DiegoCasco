@@ -75,8 +75,8 @@ public class Main extends javax.swing.JFrame {
         tf_probderumbe = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         tf_probataque = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jb_items = new javax.swing.JButton();
+        jb_zona = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,9 +210,14 @@ public class Main extends javax.swing.JFrame {
 
         jLabel13.setText("Probabilidad de Ataque");
 
-        jButton1.setText("Agregar Items");
+        jb_items.setText("Agregar Items");
+        jb_items.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_itemsActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Crear Zona");
+        jb_zona.setText("Crear Zona");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -292,8 +297,8 @@ public class Main extends javax.swing.JFrame {
                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jb_items, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                    .addComponent(jb_zona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -366,9 +371,9 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(JB_CrearMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jb_items)
                                 .addGap(34, 34, 34)
-                                .addComponent(jButton2))))
+                                .addComponent(jb_zona))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(226, 226, 226)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -431,6 +436,13 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JB_crearitemActionPerformed
 
+    private void jb_itemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_itemsActionPerformed
+        // TODO add your handling code here:
+        DefaultListModel modelolista = (DefaultListModel)itemszona.getModel();
+        DefaultListModel modelolistaItem = (DefaultListModel)listitems.getModel();
+        modelolista.addElement(modelolistaItem.getElementAt(listitems.getSelectedIndex()));
+    }//GEN-LAST:event_jb_itemsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,8 +485,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton JB_crearitem;
     private javax.swing.JButton Jb_comands;
     private javax.swing.JList<String> itemszona;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -499,6 +509,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton jb_items;
+    private javax.swing.JButton jb_zona;
     private javax.swing.JList<String> listitems;
     private javax.swing.JTextField tf_comandos;
     private javax.swing.JTextField tf_costo;
