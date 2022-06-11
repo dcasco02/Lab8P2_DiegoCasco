@@ -7,6 +7,7 @@ package lab8p2_diegocasco;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
@@ -17,14 +18,14 @@ import javax.swing.JProgressBar;
  * @author dcasc
  */
 public class Main extends javax.swing.JFrame implements Runnable{
-
+  Random r=new Random();
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
         Item i = new Item();
-
+        textarea.setEditable(false);
     }
     Jugador j =new Jugador();
     private JProgressBar barra;
@@ -502,24 +503,56 @@ public class Main extends javax.swing.JFrame implements Runnable{
     
     private void tf_comandosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_comandosKeyPressed
 
-        if(evt.getKeyCode()==13){
-          tf_comandos.getText();
-            String comandos[]=tf_comandos.getText().split("");
+        if(evt.getKeyCode()== 10){
+          String comandos[]=tf_comandos.getText().split(" ");
           if(comandos[0].equals("!pet")){
               if(comandos[1].equals("list")){
                   tf_comandos.setText("");
-                  textarea.append("********lista mascotas********");
+                  textarea.append("********lista mascotas********\n");
                   for (Mascotas mascota : mascotas) {
-                      textarea.append(mascota.getNombre());
+                      textarea.append(mascota.getNombre()+"\n");
                   }
-                  textarea.append("********************");
+                  textarea.append("********************\n");
+              }if(comandos[1].equals("feed")){
+                  for (Item item : items) {
+                  if(comandos[2].equals(item.getId())&& item.isAlimento()==true){
+                      j.getItems().remove(item);
+                  }
+              }
               }
           }if(comandos[0].equals("!mine")){
-              
+              for (Zona zona : zonas) {
+                  if(comandos[1].equals(zona.getId())){
+                    int random =1+r.nextInt(100);
+                    if(random>= zona.getProbderrumbe()){
+                        j.setDinero(0);
+                    }else{
+                        int random2 =1+r.nextInt(500);
+                        int dinero= j.getDinero()+random2;
+                        j.setDinero(dinero);
+                    }
+                  }
+            }
           }if(comandos[0].equals("!fish")){
-              
+              for (Zona zona : zonas) {
+                  if(comandos[1].equals(zona.getId())){
+                    int random =1+r.nextInt(100);
+                    if(random>= zona.getProbataque()){
+                        j.setDinero(0);
+                    }else{
+                        int random2 =1+r.nextInt(500);
+                        int dinero= j.getDinero()+random2;
+                        j.setDinero(dinero);
+                    }
+                  }
           }if(comandos[0].equals("!zone")){
-              
+              if(comandos[1].equals("list")){
+                  textarea.append("********Lista Zonas********\n");
+                  for (Zona zona : zonas) {
+                      textarea.append(zona.getNombre());
+                  }
+                  textarea.append("*****************\n");
+              }
           }if(comandos[0].equals("!adopt")){
               for (Mascotas mascota : mascotas) {
                 if(comandos[1].equals(mascota.getNombre())&& j.getDinero()>= mascota.getCosto()){
@@ -530,14 +563,15 @@ public class Main extends javax.swing.JFrame implements Runnable{
               
           }
         }
+        }  
     }//GEN-LAST:event_tf_comandosKeyPressed
 
     private void jb_zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_zonaActionPerformed
         // TODO add your handling code here:
         zonas.add(new Zona(zonas.size()-1,tf_nombre.getText(),Integer.parseInt(tf_probderumbe.getText()),Integer.parseInt(tf_probataque.getText())));
-        for(int i=0;i< itemszona.getSize();i++){
-           zonas.get(zonas.size()-1).getItems().add(e); 
-        }
+        ///for(int i=0;i< itemszona.getSize();i++){
+           //zonas.get(zonas.size()-1).getItems().add(e); 
+        //}
     }//GEN-LAST:event_jb_zonaActionPerformed
 
     /**
