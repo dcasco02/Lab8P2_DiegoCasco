@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -498,7 +499,23 @@ public class Main extends javax.swing.JFrame implements Runnable{
     }//GEN-LAST:event_Jb_comandsActionPerformed
     
     private void cargartabla(){
-        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Nombre", "Delay", "Costo", "Color", "Puntos de vida"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+            boolean[] canEdit = new boolean[]{
+                        false, false,false,false,false
+                    };
+        });
     }
     
     private void tf_comandosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_comandosKeyPressed
@@ -519,6 +536,24 @@ public class Main extends javax.swing.JFrame implements Runnable{
                       j.getItems().remove(item);
                   }
               }
+              }
+              if (comandos[1].equals("active")) {
+                  for (Mascotas mascota : mascotas) {
+                      if (comandos[2].equals(mascota.getNombre())) {
+                          cargartabla();
+                          Object[] newrow = {
+                              mascota.getNombre(),
+                              mascota.getDelay(),
+                              mascota.getCosto(),
+                              mascota.getColor(),
+                              mascota.getPuntosvida()
+                          };
+                          DefaultTableModel mascotat
+                                  = (DefaultTableModel) jTable1.getModel();
+                          mascotat.addRow(newrow);
+                          jTable1.setModel(mascotat);
+                      }
+                  }
               }
           }if(comandos[0].equals("!mine")){
               for (Zona zona : zonas) {
@@ -561,6 +596,46 @@ public class Main extends javax.swing.JFrame implements Runnable{
                 }
             }
               
+          }if(comandos[0].equals("!item")){
+              if(comandos[1].equals("list")){
+                  textarea.append("**********List Items*********\n");
+                  for (Item item : items) {
+                      textarea.append(item.getNombre());
+                  }
+                  textarea.append("******************");
+              }
+          }if(comandos[0].equals("!buy")){
+              for (Item item : items) {
+                if(comandos[1].equals(item.getId())&&j.getDinero()>=item.getPrecioventa()){
+                    int dinero=j.getDinero()-item.getPrecioventa();
+                    j.setDinero(dinero);
+                    j.getItems().add(item);
+                }
+            }
+          }if(comandos[0].equals("!bag")){
+              for(int i=0;i<j.getItems().size();i++){
+                  textarea.append(j.getItems().toString());
+              }                  
+          }if(comandos[0].equals("!d")){
+              j.setDinerobank(Integer.parseInt(comandos[1]));
+              j.setDinero(j.getDinero()-Integer.parseInt(comandos[1]));
+          }if(comandos[0].equals("!w")){
+              j.setDinero(Integer.parseInt(comandos[1]));
+              j.setDinero(j.getDinerobank()-Integer.parseInt(comandos[1]));
+          }if(comandos[0].equals("!b")){
+              textarea.append("Su dinero en persoan : "+ j.getDinero()+"\n");
+              textarea.append("su dinero en el banco es de : "+j.getDinerobank()+"\n");
+          }if(comandos[0].equals("!clear")){
+              textarea.removeAll();
+          }if(comandos[0].equals("!sell")){
+              for (Item item : items) {
+                if(comandos[1].equals(item.getId())&&j.getItems().equals(item.getId())){
+                    j.getItems().remove(item);
+                    j.setDinero(j.getDinero()+item.getPrecioventa());
+            }else{
+                    textarea.append("No tiene el item\n");
+                }
+            }    
           }
         }
         }  
