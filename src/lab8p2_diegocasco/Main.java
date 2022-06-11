@@ -459,12 +459,14 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
     private void JB_CrearMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_CrearMascotaActionPerformed
         // TODO add your handling code here:
+        AdminMascotas am= new AdminMascotas("./mascotas.cdc");
         mascotas.add(new Mascotas(tf_nombremascot.getText(), Integer.parseInt(tf_puntosvida.getText()), Integer.parseInt(tf_delay.getText()), Integer.parseInt(tf_costo.getText()), JB_color.getBackground()));
         tf_nombremascot.setText("");
         tf_puntosvida.setText("");
         tf_delay.setText("");
         tf_costo.setText("");
         JB_color.setBackground(Color.LIGHT_GRAY);
+        am.escribirArchivo();
     }//GEN-LAST:event_JB_CrearMascotaActionPerformed
 
     private void JB_crearitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_crearitemActionPerformed
@@ -643,10 +645,12 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
     private void jb_zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_zonaActionPerformed
         // TODO add your handling code here:
+        AdminZona az=new AdminZona("./zona.cdc");
         zonas.add(new Zona(zonas.size()-1,tf_nombre.getText(),Integer.parseInt(tf_probderumbe.getText()),Integer.parseInt(tf_probataque.getText())));
         ///for(int i=0;i< itemszona.getSize();i++){
            //zonas.get(zonas.size()-1).getItems().add(e); 
         //}
+        az.escribirArchivo();
     }//GEN-LAST:event_jb_zonaActionPerformed
 
     /**
