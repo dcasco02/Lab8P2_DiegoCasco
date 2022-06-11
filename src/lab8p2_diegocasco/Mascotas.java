@@ -11,7 +11,7 @@ import java.awt.Color;
  *
  * @author dcasc
  */
-public class Mascotas {
+public class Mascotas { //
     private String nombre;
     private int puntosvida;
     private int delay;

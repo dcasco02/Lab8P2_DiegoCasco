@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author dcasc
  */
 public class Zona {
+    private int id;
     private String nombre;
     private int probderrumbe;
     private int probataque;
@@ -20,7 +21,8 @@ public class Zona {
     public Zona() {
     }
 
-    public Zona(String nombre, int probderrumbe, int probataque) {
+    public Zona(int id,String nombre, int probderrumbe, int probataque) {
+        this.id=id;
         this.nombre = nombre;
         this.probderrumbe = probderrumbe;
         this.probataque = probataque;
@@ -56,6 +58,13 @@ public class Zona {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

@@ -24,22 +24,26 @@ public class Main extends javax.swing.JFrame implements Runnable{
     public Main() {
         initComponents();
         Item i = new Item();
+
     }
-        private JProgressBar barra;
-        private boolean avanzar;
+    Jugador j =new Jugador();
+    private JProgressBar barra;
+    private boolean avanzar;
     Thread hilo = new Thread();
-    public void run(){
-        while(avanzar){
-            if(avanzar){
-                barra.setValue(0);                
+
+    public void run() {
+        while (avanzar) {
+            if (avanzar) {
+                barra.setValue(0);
             } //FIN IF
-            
+
             try {
                 Thread.sleep(0);
             } catch (InterruptedException ex) {
             }
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,10 +59,10 @@ public class Main extends javax.swing.JFrame implements Runnable{
         jTable1 = new javax.swing.JTable();
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         tf_comandos = new javax.swing.JTextField();
         Jb_comands = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textarea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -141,8 +145,6 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
         jTabbedPane1.addTab("Mascotas", jPanel1);
 
-        jScrollPane4.setViewportView(jTextPane1);
-
         tf_comandos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tf_comandosKeyPressed(evt);
@@ -156,6 +158,10 @@ public class Main extends javax.swing.JFrame implements Runnable{
             }
         });
 
+        textarea.setColumns(20);
+        textarea.setRows(5);
+        jScrollPane5.setViewportView(textarea);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -168,14 +174,14 @@ public class Main extends javax.swing.JFrame implements Runnable{
                         .addComponent(tf_comandos, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Jb_comands, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane5))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_comandos)
@@ -444,60 +450,39 @@ public class Main extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
         JB_color.setBackground(
                 JColorChooser.showDialog(
-                        this, "Seleccione un color", 
+                        this, "Seleccione un color",
                         Color.yellow)
         );
     }//GEN-LAST:event_JB_colorActionPerformed
 
     private void JB_CrearMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_CrearMascotaActionPerformed
         // TODO add your handling code here:
-        for (Mascotas mascota : mascotas) {
-            if(mascota.getNombre()!=tf_nombremascot.getText()){
-                mascotas.add(new Mascotas(tf_nombremascot.getText(), Integer.parseInt(tf_puntosvida.getText()), Integer.parseInt(tf_delay.getText()), Integer.parseInt(tf_costo.getText()), JB_color.getBackground()));
-                tf_nombremascot.setText("");
-                tf_puntosvida.setText("");
-                tf_delay.setText("");
-                tf_costo.setText("");
-                JB_color.setBackground(Color.LIGHT_GRAY);
-            }else{
-                JOptionPane.showInputDialog("Mascota Ya existe volver a intentar");
-            }
-        }
-        
+        mascotas.add(new Mascotas(tf_nombremascot.getText(), Integer.parseInt(tf_puntosvida.getText()), Integer.parseInt(tf_delay.getText()), Integer.parseInt(tf_costo.getText()), JB_color.getBackground()));
+        tf_nombremascot.setText("");
+        tf_puntosvida.setText("");
+        tf_delay.setText("");
+        tf_costo.setText("");
+        JB_color.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_JB_CrearMascotaActionPerformed
 
     private void JB_crearitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_crearitemActionPerformed
-        AdminItems ai=new AdminItems("./items.cdc");
+        AdminItems ai = new AdminItems("./items.cdc");
         ai.cargarArchivo();
-        if(CB_alimento.isSelected()){
-            DefaultListModel modelo = (DefaultListModel)listitems.getModel();
-            for (Item item : items) {
-                if(item.getNombre()!= tf_nomitems.getText()){
-                    items.add(new Item(items.size() - 1, tf_nomitems.getText(), true, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-                    modelo.addElement(new Item(items.size() - 1, tf_nomitems.getText(), true, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-                    tf_nomitems.setText("");
-                    tf_probObtener.setText("");
-                    tf_precio.setText("");
-                    ai.escribirArchivo();
-                }else{
-                    JOptionPane.showInputDialog("Item Ya existe volver a intentar");
-                }
+            if (CB_alimento.isSelected()) {
+                DefaultListModel modelo = (DefaultListModel) listitems.getModel();
+                modelo.addElement(new Item(0, tf_nomitems.getText(), true, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                tf_nomitems.setText("");
+                tf_probObtener.setText("");
+                tf_precio.setText("");
+                ai.escribirArchivo();
+            } else {
+                DefaultListModel modelo = (DefaultListModel) listitems.getModel();
+                modelo.addElement(new Item(0, tf_nomitems.getText(), false, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                tf_nomitems.setText("");
+                tf_probObtener.setText("");
+                tf_precio.setText("");
+                ai.escribirArchivo();
             }
-        }else{
-            DefaultListModel modelo = (DefaultListModel)listitems.getModel();
-             for (Item item : items) {
-                if(item.getNombre()!= tf_nomitems.getText()){
-                    items.add(new Item(items.size() - 1, tf_nomitems.getText(), false, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-                    modelo.addElement(new Item(items.size() - 1, tf_nomitems.getText(),false, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-                    tf_nomitems.setText("");
-                    tf_probObtener.setText("");
-                    tf_precio.setText("");
-                    ai.escribirArchivo();
-                }else{
-                    JOptionPane.showInputDialog("Item Ya existe volver a intentar");
-                }
-            }
-        }
     }//GEN-LAST:event_JB_crearitemActionPerformed
 
     private void jb_itemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_itemsActionPerformed
@@ -516,16 +501,32 @@ public class Main extends javax.swing.JFrame implements Runnable{
     }
     
     private void tf_comandosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_comandosKeyPressed
-        if(evt.getKeyCode()==10){
+
+        if(evt.getKeyCode()==13){
           tf_comandos.getText();
-          String comandos[]=tf_comandos.getText().split("");
+            String comandos[]=tf_comandos.getText().split("");
           if(comandos[0].equals("!pet")){
-              
+              if(comandos[1].equals("list")){
+                  tf_comandos.setText("");
+                  textarea.append("********lista mascotas********");
+                  for (Mascotas mascota : mascotas) {
+                      textarea.append(mascota.getNombre());
+                  }
+                  textarea.append("********************");
+              }
           }if(comandos[0].equals("!mine")){
               
           }if(comandos[0].equals("!fish")){
               
           }if(comandos[0].equals("!zone")){
+              
+          }if(comandos[0].equals("!adopt")){
+              for (Mascotas mascota : mascotas) {
+                if(comandos[1].equals(mascota.getNombre())&& j.getDinero()>= mascota.getCosto()){
+                    j.getMascot().add(mascota);
+                    textarea.append("Has adoptado a la mascota: "+mascota.getNombre());
+                }
+            }
               
           }
         }
@@ -533,9 +534,9 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
     private void jb_zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_zonaActionPerformed
         // TODO add your handling code here:
-        zonas.add(new Zona(tf_nombre.getText(),Integer.parseInt(tf_probderumbe.getText()),Integer.parseInt(tf_probataque.getText())));
-        for (Item item : items) {
-           zonas.get(zonas.size()-1).getItems().add(item); 
+        zonas.add(new Zona(zonas.size()-1,tf_nombre.getText(),Integer.parseInt(tf_probderumbe.getText()),Integer.parseInt(tf_probataque.getText())));
+        for(int i=0;i< itemszona.getSize();i++){
+           zonas.get(zonas.size()-1).getItems().add(e); 
         }
     }//GEN-LAST:event_jb_zonaActionPerformed
 
@@ -601,13 +602,13 @@ public class Main extends javax.swing.JFrame implements Runnable{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JButton jb_items;
     private javax.swing.JButton jb_zona;
     private javax.swing.JList<String> listitems;
+    private javax.swing.JTextArea textarea;
     private javax.swing.JTextField tf_comandos;
     private javax.swing.JTextField tf_costo;
     private javax.swing.JTextField tf_delay;
