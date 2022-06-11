@@ -595,6 +595,8 @@ public class Main extends javax.swing.JFrame implements Runnable{
                 if(comandos[1].equals(mascota.getNombre())&& j.getDinero()>= mascota.getCosto()){
                     j.getMascot().add(mascota);
                     textarea.append("Has adoptado a la mascota: "+mascota.getNombre());
+                }else{
+                    textarea.append("no tiene Dinero\n");
                 }
             }
               
@@ -612,6 +614,8 @@ public class Main extends javax.swing.JFrame implements Runnable{
                     int dinero=j.getDinero()-item.getPrecioventa();
                     j.setDinero(dinero);
                     j.getItems().add(item);
+                }else{
+                    textarea.append("No tiene dinero\n");
                 }
             }
           }if(comandos[0].equals("!bag")){
