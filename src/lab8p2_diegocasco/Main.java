@@ -36,7 +36,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
     public void run() {
         while (avanzar) {
             if (avanzar) {
-                barra.setValue(0);
+                barra.setValue(mascotas.get(0).getPuntosvida());
             } //FIN IF
 
             try {
@@ -554,6 +554,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
                                   = (DefaultTableModel) jTable1.getModel();
                           mascotat.addRow(newrow);
                           jTable1.setModel(mascotat);
+                          tf_comandos.setText("");
                       }
                   }
               }
@@ -568,9 +569,11 @@ public class Main extends javax.swing.JFrame implements Runnable{
                         int dinero= j.getDinero()+random2;
                         j.setDinero(dinero);
                     }
+                    tf_comandos.setText("");
                   }
             }
           }if(comandos[0].equals("!fish")){
+              tf_comandos.setText("");
               for (Zona zona : zonas) {
                   if(comandos[1].equals(zona.getId())){
                     int random =1+r.nextInt(100);
@@ -583,6 +586,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
                     }
                   }
           }if(comandos[0].equals("!zone")){
+              tf_comandos.setText("");
               if(comandos[1].equals("list")){
                   textarea.append("********Lista Zonas********\n");
                   for (Zona zona : zonas) {
@@ -591,6 +595,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
                   textarea.append("*****************\n");
               }
           }if(comandos[0].equals("!adopt")){
+              tf_comandos.setText("");
               for (Mascotas mascota : mascotas) {
                 if(comandos[1].equals(mascota.getNombre())&& j.getDinero()>= mascota.getCosto()){
                     j.getMascot().add(mascota);
@@ -601,6 +606,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
             }
               
           }if(comandos[0].equals("!item")){
+              tf_comandos.setText("");
               if(comandos[1].equals("list")){
                   textarea.append("**********List Items*********\n");
                   for (Item item : items) {
@@ -609,6 +615,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
                   textarea.append("******************");
               }
           }if(comandos[0].equals("!buy")){
+              tf_comandos.setText("");
               for (Item item : items) {
                 if(comandos[1].equals(item.getId())&&j.getDinero()>=item.getPrecioventa()){
                     int dinero=j.getDinero()-item.getPrecioventa();
@@ -619,21 +626,25 @@ public class Main extends javax.swing.JFrame implements Runnable{
                 }
             }
           }if(comandos[0].equals("!bag")){
+              tf_comandos.setText("");
               for(int i=0;i<j.getItems().size();i++){
                   textarea.append(j.getItems().toString());
               }                  
           }if(comandos[0].equals("!d")){
+              tf_comandos.setText("");
               j.setDinerobank(Integer.parseInt(comandos[1]));
               j.setDinero(j.getDinero()-Integer.parseInt(comandos[1]));
           }if(comandos[0].equals("!w")){
               j.setDinero(Integer.parseInt(comandos[1]));
               j.setDinero(j.getDinerobank()-Integer.parseInt(comandos[1]));
           }if(comandos[0].equals("!b")){
+              tf_comandos.setText("");
               textarea.append("Su dinero en persoan : "+ j.getDinero()+"\n");
               textarea.append("su dinero en el banco es de : "+j.getDinerobank()+"\n");
           }if(comandos[0].equals("!clear")){
               textarea.removeAll();
           }if(comandos[0].equals("!sell")){
+              tf_comandos.setText("");
               for (Item item : items) {
                 if(comandos[1].equals(item.getId())&&j.getItems().equals(item.getId())){
                     j.getItems().remove(item);
