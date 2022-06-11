@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 /**
@@ -23,14 +24,10 @@ public class Main extends javax.swing.JFrame implements Runnable{
     public Main() {
         initComponents();
         Item i = new Item();
-        int contadorites =0;
-        
-        
     }
         private JProgressBar barra;
         private boolean avanzar;
     Thread hilo = new Thread();
-    
     public void run(){
         while(avanzar){
             if(avanzar){
@@ -146,7 +143,18 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
         jScrollPane4.setViewportView(jTextPane1);
 
+        tf_comandos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_comandosKeyPressed(evt);
+            }
+        });
+
         Jb_comands.setText(">");
+        Jb_comands.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Jb_comandsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -245,6 +253,11 @@ public class Main extends javax.swing.JFrame implements Runnable{
         });
 
         jb_zona.setText("Crear Zona");
+        jb_zona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_zonaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -438,31 +451,52 @@ public class Main extends javax.swing.JFrame implements Runnable{
 
     private void JB_CrearMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_CrearMascotaActionPerformed
         // TODO add your handling code here:
-        mascotas.add(new Mascotas(tf_nombremascot.getText(),Integer.parseInt(tf_puntosvida.getText()),Integer.parseInt(tf_delay.getText()),Integer.parseInt(tf_costo.getText()),JB_color.getBackground()));
-        tf_nombremascot.setText("");
-        tf_puntosvida.setText("");
-        tf_delay.setText("");
-        tf_costo.setText("");
-        JB_color.setBackground(Color.GRAY);
+        for (Mascotas mascota : mascotas) {
+            if(mascota.getNombre()!=tf_nombremascot.getText()){
+                mascotas.add(new Mascotas(tf_nombremascot.getText(), Integer.parseInt(tf_puntosvida.getText()), Integer.parseInt(tf_delay.getText()), Integer.parseInt(tf_costo.getText()), JB_color.getBackground()));
+                tf_nombremascot.setText("");
+                tf_puntosvida.setText("");
+                tf_delay.setText("");
+                tf_costo.setText("");
+                JB_color.setBackground(Color.LIGHT_GRAY);
+            }else{
+                JOptionPane.showInputDialog("Mascota Ya existe volver a intentar");
+            }
+        }
+        
     }//GEN-LAST:event_JB_CrearMascotaActionPerformed
 
     private void JB_crearitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_crearitemActionPerformed
         AdminItems ai=new AdminItems("./items.cdc");
+        ai.cargarArchivo();
         if(CB_alimento.isSelected()){
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
-            modelo.addElement(new Item(0,tf_nomitems.getText(),true,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-            tf_nomitems.setText("");
-            tf_probObtener.setText("");
-            tf_precio.setText("");
-            ai.escribirArchivo();
+            for (Item item : items) {
+                if(item.getNombre()!= tf_nomitems.getText()){
+                    items.add(new Item(items.size() - 1, tf_nomitems.getText(), true, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                    modelo.addElement(new Item(items.size() - 1, tf_nomitems.getText(), true, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                    tf_nomitems.setText("");
+                    tf_probObtener.setText("");
+                    tf_precio.setText("");
+                    ai.escribirArchivo();
+                }else{
+                    JOptionPane.showInputDialog("Item Ya existe volver a intentar");
+                }
+            }
         }else{
             DefaultListModel modelo = (DefaultListModel)listitems.getModel();
-            modelo.addElement
-            (new Item(0,tf_nomitems.getText(),false,Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
-            tf_nomitems.setText("");
-            tf_probObtener.setText("");
-            tf_precio.setText("");
-            ai.escribirArchivo();
+             for (Item item : items) {
+                if(item.getNombre()!= tf_nomitems.getText()){
+                    items.add(new Item(items.size() - 1, tf_nomitems.getText(), false, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                    modelo.addElement(new Item(items.size() - 1, tf_nomitems.getText(),false, Integer.parseInt(tf_probObtener.getText()), Integer.parseInt(tf_precio.getText())));
+                    tf_nomitems.setText("");
+                    tf_probObtener.setText("");
+                    tf_precio.setText("");
+                    ai.escribirArchivo();
+                }else{
+                    JOptionPane.showInputDialog("Item Ya existe volver a intentar");
+                }
+            }
         }
     }//GEN-LAST:event_JB_crearitemActionPerformed
 
@@ -472,6 +506,38 @@ public class Main extends javax.swing.JFrame implements Runnable{
         DefaultListModel modelolistaItem = (DefaultListModel)listitems.getModel();
         modelolista.addElement(modelolistaItem.getElementAt(listitems.getSelectedIndex()));
     }//GEN-LAST:event_jb_itemsActionPerformed
+
+    private void Jb_comandsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Jb_comandsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Jb_comandsActionPerformed
+    
+    private void cargartabla(){
+        
+    }
+    
+    private void tf_comandosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_comandosKeyPressed
+        if(evt.getKeyCode()==10){
+          tf_comandos.getText();
+          String comandos[]=tf_comandos.getText().split("");
+          if(comandos[0].equals("!pet")){
+              
+          }if(comandos[0].equals("!mine")){
+              
+          }if(comandos[0].equals("!fish")){
+              
+          }if(comandos[0].equals("!zone")){
+              
+          }
+        }
+    }//GEN-LAST:event_tf_comandosKeyPressed
+
+    private void jb_zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_zonaActionPerformed
+        // TODO add your handling code here:
+        zonas.add(new Zona(tf_nombre.getText(),Integer.parseInt(tf_probderumbe.getText()),Integer.parseInt(tf_probataque.getText())));
+        for (Item item : items) {
+           zonas.get(zonas.size()-1).getItems().add(item); 
+        }
+    }//GEN-LAST:event_jb_zonaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -554,6 +620,7 @@ public class Main extends javax.swing.JFrame implements Runnable{
     private javax.swing.JTextField tf_probderumbe;
     private javax.swing.JTextField tf_puntosvida;
     // End of variables declaration//GEN-END:variables
+    ArrayList <Zona> zonas=new ArrayList();
     ArrayList <Mascotas> mascotas = new ArrayList();
     ArrayList <Item> items= new ArrayList();
 }
